@@ -1,0 +1,669 @@
+{
+    "extensions": {
+        "eventsTimeline": {
+            "events": [
+            ],
+            "patterns": [
+            ],
+            "timelines": [
+                {
+                    "eventInstances": [
+                    ],
+                    "name": "Timeline_1",
+                    "order": 0,
+                    "patternInstances": [
+                    ]
+                }
+            ]
+        },
+        "recordAndReplay": {
+            "filters": {
+            }
+        }
+    },
+    "library": {
+        "classes": [
+            {
+                "className": "maitre",
+                "color": 0,
+                "definition": {
+                    "inputs": [
+                        {
+                            "name": "joueur_suivant",
+                            "type": "IMPULSION"
+                        },
+                        {
+                            "name": "calculer_scores",
+                            "type": "STRING"
+                        },
+                        {
+                            "name": "piocher_carte",
+                            "type": "IMPULSION"
+                        },
+                        {
+                            "name": "jouer_carte",
+                            "type": "IMPULSION"
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "ajouter_carte",
+                            "type": "IMPULSION"
+                        },
+                        {
+                            "name": "your_turn",
+                            "type": "IMPULSION"
+                        },
+                        {
+                            "name": "distribuer_cartes",
+                            "type": "IMPULSION"
+                        },
+                        {
+                            "name": "mettre_a_jour_whiteboard",
+                            "type": "IMPULSION"
+                        }
+                    ]
+                },
+                "description": "",
+                "icon": -1,
+                "package": "",
+                "plugin": "ingescape_class",
+                "uuid": "8f847207-c564-4a6d-9620-bf49a71b9d0f",
+                "version": ""
+            },
+            {
+                "className": "Joueur",
+                "color": 0,
+                "definition": {
+                    "attributes": [
+                        {
+                            "name": " score",
+                            "type": "INTEGER"
+                        },
+                        {
+                            "name": "maitre",
+                            "type": "STRING"
+                        },
+                        {
+                            "name": "whiteboard",
+                            "type": "STRING"
+                        },
+                        {
+                            "description": "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\np, li { white-space: pre-wrap; }\nhr { height: 1px; border-width: 0; }\nli.unchecked::marker { content: \"\\2610\"; }\nli.checked::marker { content: \"\\2612\"; }\n</style></head><body style=\" font-family:'Asap'; font-size:13px; font-weight:400; font-style:normal;\">\n<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">L<span style=\" font-size:13px; color:#2a2a2a;\">iste des cartes en main</span></p></body></html>",
+                            "name": "main",
+                            "type": "DATA"
+                        }
+                    ],
+                    "inputs": [
+                        {
+                            "name": "chat_message",
+                            "type": "STRING"
+                        },
+                        {
+                            "name": "yourTurn",
+                            "type": "IMPULSION"
+                        },
+                        {
+                            "name": "ajouter_carte",
+                            "type": "IMPULSION"
+                        },
+                        {
+                            "name": "set_hand",
+                            "type": "IMPULSION"
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "notifier_tour",
+                            "type": "IMPULSION"
+                        },
+                        {
+                            "name": "calculer_score",
+                            "type": "STRING"
+                        },
+                        {
+                            "name": "piocher_carte",
+                            "type": "IMPULSION"
+                        },
+                        {
+                            "name": "jouer_carte",
+                            "type": "IMPULSION"
+                        }
+                    ],
+                    "services": [
+                        {
+                            "name": "on_agent_event_callback"
+                        },
+                        {
+                            "arguments": [
+                                {
+                                    "name": "sender_agent_name",
+                                    "type": "BOOL"
+                                }
+                            ],
+                            "name": "on_service_callback"
+                        },
+                        {
+                            "name": "on_freeze_callback"
+                        }
+                    ]
+                },
+                "description": "",
+                "icon": -1,
+                "package": "",
+                "plugin": "ingescape_class",
+                "uuid": "619224d8-d3e7-421b-85c0-33a0157f5d45",
+                "version": ""
+            },
+            {
+                "className": "Whiteboard",
+                "color": 0,
+                "definition": {
+                    "inputs": [
+                        {
+                            "name": "title",
+                            "type": "STRING"
+                        },
+                        {
+                            "name": "backgroundColor",
+                            "type": "STRING"
+                        },
+                        {
+                            "name": "labelsVisible",
+                            "type": "BOOL"
+                        },
+                        {
+                            "name": "chatMessage",
+                            "type": "STRING"
+                        },
+                        {
+                            "name": "clear",
+                            "type": "IMPULSION"
+                        },
+                        {
+                            "name": "ui_command",
+                            "type": "STRING"
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "lastChatMessage",
+                            "type": "STRING"
+                        },
+                        {
+                            "name": "lastAction",
+                            "type": "STRING"
+                        },
+                        {
+                            "name": "ui_error",
+                            "type": "STRING"
+                        }
+                    ],
+                    "services": [
+                        {
+                            "arguments": [
+                                {
+                                    "name": "message",
+                                    "type": "STRING"
+                                }
+                            ],
+                            "name": "chat"
+                        },
+                        {
+                            "name": "snapshot",
+                            "replies": [
+                                {
+                                    "arguments": [
+                                        {
+                                            "name": "base64Png",
+                                            "type": "DATA"
+                                        }
+                                    ],
+                                    "name": "snapshotResult"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "clear"
+                        },
+                        {
+                            "name": "showLabels"
+                        },
+                        {
+                            "name": "hideLabels"
+                        },
+                        {
+                            "arguments": [
+                                {
+                                    "name": "type",
+                                    "type": "STRING"
+                                },
+                                {
+                                    "name": "x",
+                                    "type": "DOUBLE"
+                                },
+                                {
+                                    "name": "y",
+                                    "type": "DOUBLE"
+                                },
+                                {
+                                    "name": "width",
+                                    "type": "DOUBLE"
+                                },
+                                {
+                                    "name": "height",
+                                    "type": "DOUBLE"
+                                },
+                                {
+                                    "name": "fill",
+                                    "type": "STRING"
+                                },
+                                {
+                                    "name": "stroke",
+                                    "type": "STRING"
+                                },
+                                {
+                                    "name": "strokeWidth",
+                                    "type": "DOUBLE"
+                                }
+                            ],
+                            "name": "addShape",
+                            "replies": [
+                                {
+                                    "arguments": [
+                                        {
+                                            "name": "elementId",
+                                            "type": "INTEGER"
+                                        }
+                                    ],
+                                    "name": "elementCreated"
+                                }
+                            ]
+                        },
+                        {
+                            "arguments": [
+                                {
+                                    "name": "text",
+                                    "type": "STRING"
+                                },
+                                {
+                                    "name": "x",
+                                    "type": "DOUBLE"
+                                },
+                                {
+                                    "name": "y",
+                                    "type": "DOUBLE"
+                                },
+                                {
+                                    "name": "color",
+                                    "type": "STRING"
+                                }
+                            ],
+                            "name": "addText",
+                            "replies": [
+                                {
+                                    "arguments": [
+                                        {
+                                            "name": "elementId",
+                                            "type": "INTEGER"
+                                        }
+                                    ],
+                                    "name": "elementCreated"
+                                }
+                            ]
+                        },
+                        {
+                            "arguments": [
+                                {
+                                    "name": "base64",
+                                    "type": "DATA"
+                                },
+                                {
+                                    "name": "x",
+                                    "type": "DOUBLE"
+                                },
+                                {
+                                    "name": "y",
+                                    "type": "DOUBLE"
+                                },
+                                {
+                                    "name": "width",
+                                    "type": "DOUBLE"
+                                },
+                                {
+                                    "name": "height",
+                                    "type": "DOUBLE"
+                                }
+                            ],
+                            "name": "addImage",
+                            "replies": [
+                                {
+                                    "arguments": [
+                                        {
+                                            "name": "elementId",
+                                            "type": "INTEGER"
+                                        }
+                                    ],
+                                    "name": "elementCreated"
+                                }
+                            ]
+                        },
+                        {
+                            "arguments": [
+                                {
+                                    "name": "url",
+                                    "type": "STRING"
+                                },
+                                {
+                                    "name": "x",
+                                    "type": "DOUBLE"
+                                },
+                                {
+                                    "name": "y",
+                                    "type": "DOUBLE"
+                                }
+                            ],
+                            "name": "addImageFromUrl",
+                            "replies": [
+                                {
+                                    "arguments": [
+                                        {
+                                            "name": "elementId",
+                                            "type": "INTEGER"
+                                        }
+                                    ],
+                                    "name": "elementCreated"
+                                }
+                            ]
+                        },
+                        {
+                            "arguments": [
+                                {
+                                    "name": "elementId",
+                                    "type": "INTEGER"
+                                }
+                            ],
+                            "name": "remove",
+                            "replies": [
+                                {
+                                    "arguments": [
+                                        {
+                                            "name": "succeeded",
+                                            "type": "BOOL"
+                                        }
+                                    ],
+                                    "name": "actionResult"
+                                }
+                            ]
+                        },
+                        {
+                            "arguments": [
+                                {
+                                    "name": "elementId",
+                                    "type": "INTEGER"
+                                },
+                                {
+                                    "name": "dx",
+                                    "type": "DOUBLE"
+                                },
+                                {
+                                    "name": "dy",
+                                    "type": "DOUBLE"
+                                }
+                            ],
+                            "name": "translate",
+                            "replies": [
+                                {
+                                    "arguments": [
+                                        {
+                                            "name": "succeeded",
+                                            "type": "BOOL"
+                                        }
+                                    ],
+                                    "name": "actionResult"
+                                }
+                            ]
+                        },
+                        {
+                            "arguments": [
+                                {
+                                    "name": "elementId",
+                                    "type": "INTEGER"
+                                },
+                                {
+                                    "name": "x",
+                                    "type": "DOUBLE"
+                                },
+                                {
+                                    "name": "y",
+                                    "type": "DOUBLE"
+                                }
+                            ],
+                            "name": "moveTo",
+                            "replies": [
+                                {
+                                    "arguments": [
+                                        {
+                                            "name": "succeeded",
+                                            "type": "BOOL"
+                                        }
+                                    ],
+                                    "name": "actionResult"
+                                }
+                            ]
+                        },
+                        {
+                            "arguments": [
+                                {
+                                    "name": "elementId",
+                                    "type": "INTEGER"
+                                },
+                                {
+                                    "name": "property",
+                                    "type": "STRING"
+                                },
+                                {
+                                    "name": "value",
+                                    "type": "STRING"
+                                }
+                            ],
+                            "name": "setStringProperty",
+                            "replies": [
+                                {
+                                    "arguments": [
+                                        {
+                                            "name": "succeeded",
+                                            "type": "BOOL"
+                                        }
+                                    ],
+                                    "name": "actionResult"
+                                }
+                            ]
+                        },
+                        {
+                            "arguments": [
+                                {
+                                    "name": "elementId",
+                                    "type": "INTEGER"
+                                },
+                                {
+                                    "name": "property",
+                                    "type": "STRING"
+                                },
+                                {
+                                    "name": "value",
+                                    "type": "DOUBLE"
+                                }
+                            ],
+                            "name": "setDoubleProperty",
+                            "replies": [
+                                {
+                                    "arguments": [
+                                        {
+                                            "name": "succeeded",
+                                            "type": "BOOL"
+                                        }
+                                    ],
+                                    "name": "actionResult"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "getElementIds",
+                            "replies": [
+                                {
+                                    "arguments": [
+                                        {
+                                            "name": "jsonArray",
+                                            "type": "STRING"
+                                        }
+                                    ],
+                                    "name": "elementIds"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "getElements",
+                            "replies": [
+                                {
+                                    "arguments": [
+                                        {
+                                            "name": "jsonArray",
+                                            "type": "STRING"
+                                        }
+                                    ],
+                                    "name": "elements"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                "description": "",
+                "icon": -1,
+                "package": "",
+                "plugin": "ingescape_class",
+                "uuid": "ddebc8c7-a079-4b0c-a282-eca734bed517",
+                "version": ""
+            }
+        ]
+    },
+    "systemViews": [
+        {
+            "children": [
+                {
+                    "agent": {
+                        "instances": [
+                            {
+                                "commandLine": "C:\\Users\\33649\\Documents\\Nelson\\3A\\S9\\Interaction_distribuee\\IngeScape\\Whiteboard\\Whiteboard.exe",
+                                "hostname": "DESKTOP-6MGDM90",
+                                "ip": "127.0.0.1",
+                                "isAttachedToCircle": false,
+                                "uuid": "8e4ee674-fb94-4324-8814-aecf960ff1e2"
+                            }
+                        ]
+                    },
+                    "class": "ddebc8c7-a079-4b0c-a282-eca734bed517",
+                    "comment": "",
+                    "height": 202,
+                    "name": "Whiteboard",
+                    "simulationTime": 5000,
+                    "uuid": "0f07af32-29f0-4e21-a5e2-3594bf425a27",
+                    "width": 250,
+                    "x": 452.4000338051823,
+                    "y": -299.22260462087996
+                },
+                {
+                    "agent": {
+                    },
+                    "class": "619224d8-d3e7-421b-85c0-33a0157f5d45",
+                    "comment": "",
+                    "height": 158,
+                    "name": "Joueur",
+                    "simulationTime": 5000,
+                    "uuid": "ceca152e-a1ec-4654-9ff0-3e42c2a238c6",
+                    "width": 250,
+                    "x": 995.1762075464895,
+                    "y": -296.1608888070398
+                },
+                {
+                    "agent": {
+                    },
+                    "class": "8f847207-c564-4a6d-9620-bf49a71b9d0f",
+                    "comment": "",
+                    "height": 158,
+                    "name": "maitre",
+                    "simulationTime": 5000,
+                    "uuid": "baf5856f-2e94-439c-95a1-53497150d756",
+                    "width": 250,
+                    "x": 609.6030979212728,
+                    "y": -574.1711404311113
+                }
+            ],
+            "links": {
+                "mappings": [
+                    {
+                        "from": "maitre",
+                        "fromInput": "jouer_carte",
+                        "to": "Joueur",
+                        "toOutput": "jouer_carte"
+                    },
+                    {
+                        "from": "maitre",
+                        "fromInput": "piocher_carte",
+                        "to": "Joueur",
+                        "toOutput": "piocher_carte"
+                    },
+                    {
+                        "from": "maitre",
+                        "fromInput": "calculer_scores",
+                        "to": "Joueur",
+                        "toOutput": "calculer_score"
+                    },
+                    {
+                        "from": "Joueur",
+                        "fromInput": "chat_message",
+                        "to": "Whiteboard",
+                        "toOutput": "lastChatMessage"
+                    },
+                    {
+                        "from": "Joueur",
+                        "fromInput": "set_hand",
+                        "to": "maitre",
+                        "toOutput": "distribuer_cartes"
+                    },
+                    {
+                        "from": "maitre",
+                        "fromInput": "joueur_suivant",
+                        "to": "Joueur",
+                        "toOutput": "notifier_tour"
+                    },
+                    {
+                        "from": "Joueur",
+                        "fromInput": "yourTurn",
+                        "to": "maitre",
+                        "toOutput": "your_turn"
+                    },
+                    {
+                        "from": "Whiteboard",
+                        "fromInput": "ui_command",
+                        "to": "maitre",
+                        "toOutput": "mettre_a_jour_whiteboard"
+                    },
+                    {
+                        "from": "Whiteboard",
+                        "fromInput": "ui_command",
+                        "to": "Joueur",
+                        "toOutput": "jouer_carte"
+                    },
+                    {
+                        "from": "Joueur",
+                        "fromInput": "ajouter_carte",
+                        "to": "maitre",
+                        "toOutput": "ajouter_carte"
+                    }
+                ]
+            },
+            "name": "Main view"
+        }
+    ]
+}
